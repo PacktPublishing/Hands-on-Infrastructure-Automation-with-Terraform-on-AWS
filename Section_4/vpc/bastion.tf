@@ -19,13 +19,34 @@ resource "aws_launch_configuration" "bastion" {
   enable_monitoring           = false
   security_groups             = ["${aws_security_group.bastion.id}"]
 
+  user_data = "${data.template_cloudinit_config.user_data.rendered}"
+
   lifecycle {
     create_before_destroy = true
   }
 }
 
+# User data
+data "template_file" "user_data" {
+  template = "${file("${path.module}/templates/user_data.sh")}"
+}
+
+data "template_cloudinit_config" "user_data" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = "${data.template_file.user_data.rendered}"
+  }
+}
+
 resource "aws_autoscaling_group" "bastion" {
-  name                 = "bastion-asg"
+  # Force a redeployment when launch configuration changes.
+  # This will reset the desired capacity if it was changed due to
+  # autoscaling events.
+  name = "${aws_launch_configuration.bastion.name}-asg"
+
   min_size             = 0
   desired_capacity     = 1
   max_size             = 1
@@ -40,6 +61,11 @@ resource "aws_autoscaling_group" "bastion" {
       propagate_at_launch = true
     },
   ]
+
+  # Required to redeploy without an outage.
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # Security group

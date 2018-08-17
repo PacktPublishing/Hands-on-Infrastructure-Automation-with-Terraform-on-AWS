@@ -13,7 +13,7 @@ terraform {
 
   backend "s3" {
     bucket  = "packt-terraform-backbone-test-ap-southeast-2"
-    key     = "test/vpc"
+    key     = "test/ecs_app_todo"
     region  = "ap-southeast-2"
     encrypt = "true"
   }

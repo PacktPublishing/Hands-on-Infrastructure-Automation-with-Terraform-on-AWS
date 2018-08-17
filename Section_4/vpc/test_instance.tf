@@ -22,7 +22,7 @@ resource "aws_launch_configuration" "test" {
 resource "aws_autoscaling_group" "test" {
   name              = "test-asg"
   min_size          = 0
-  desired_capacity  = 1
+  desired_capacity  = 0
   max_size          = 1
   health_check_type = "EC2"
 
