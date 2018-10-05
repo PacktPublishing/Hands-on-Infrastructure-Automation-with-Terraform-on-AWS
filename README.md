@@ -19,7 +19,6 @@ By the end of this course, you will be able to create and maintain complex infra
 ## Instructions and Navigation
 ### Assumed Knowledge
 To fully benefit from the coverage included in this course, you will need:<br/>
-To fully benefit from the coverage included in this course, you will need:
 
 ● Experience working with infrastructure (networks, servers, databases)
 
@@ -29,7 +28,7 @@ To fully benefit from the coverage included in this course, you will need:
 
 ### Technical Requirements
 This course has the following software requirements:<br/>
-This course has the following software requirements:
+
 
 ● An editor like Atom, Sublime Text or Visual Studio Code (recommended)
 
